@@ -21,7 +21,7 @@ function incrementProgress(){
 
     const intervalId = setInterval(() => {
         progress++;
-        progressBar.style.width = progress + "%";
+        progressBar.style.width = progress + "%";// relative width with respect to the parent container
 
         if(progress > 100){
             clearInterval(intervalId);
