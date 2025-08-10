@@ -1,0 +1,7 @@
+This mini projects contains a progress as asked by the interviewer to me in the Coursera interview, 
+ which I was unable to create at that time.
+
+A container inside which there is a progress bar, which is incrementing 1% at a time and reaches 100% in 3000.
+The animations should be done using JS.
+
+
