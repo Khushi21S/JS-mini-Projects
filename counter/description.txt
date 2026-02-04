@@ -1,0 +1,56 @@
+Implement a counter using setTimeout and setInterval.
+
+read about setInterval and how it works behind the scenes
+
+why clearinterval is required and also 
+about what frames per second and how browsers work.
+
+requestAnimationFrame- browser API.
+
+
+--Modify your counter range
+Make it count from 50 → 500 instead of 0 → 1000.
+
+
+--Multiple counters
+Add two <h1> elements and run counters on both at the same time.  ---We are updating the Dom in this case, how can we avoid that.
+
+
+--Stop the counter at any number
+example: stop at 750.
+
+--Change text dynamically while counting
+
+Example: if count < 500 → “Getting started”, if count >= 500 → “Halfway there”.
+
+--Highlight milestones
+
+Example: every 100 counts, make the number bold or change color.
+
+--Trigger a callback
+
+Example: when counter finishes, call your changeText() automatically.
+
+--Make counter a reusable function
+
+Accept start, end, step, delay as parameters.
+
+--Pause/resume counter
+
+Introduce buttons that can pause and resume counting.
+
+--Reset counter
+
+Reset it to the start value and restart.
+
+--Local vs global variables
+
+Try moving count inside the function vs outside. See how behavior changes.
+
+
+--Non-linear counting
+
+Slow at start, fast at the end — learn about simple math in JS.
+
+---requestAnimationFrame
+---suppose we have two counters and we have to stop one of them
