@@ -1,30 +1,230 @@
+// --Non-linear counting
+
+// Slow at start, fast at the end — learn about simple math in JS.
+
+
+const heading = document.getElementById("heading");
+const text = document.getElementById("text");
+const resetButton = document.getElementById("reset");
+const startButton = document.getElementById("start");
+
+
+
+function showCount(currValue){
+  heading.innerText = currValue
+}
+
+function display(buttonState){
+  startButton.innerText = buttonState
+}
+
+function increment(stepSize, initialValue, finalValue, from, speedFactor){
+  const distanceCovered = Math.abs(from - initialValue);
+  const totalDistance = Math.abs(finalValue - initialValue);
+  if(distanceCovered == 0) return 0;
+  let progress = distanceCovered/totalDistance;
+  
+  let step = stepSize + (progress * speedFactor);
+  return Math.ceil(step);
+}
+
+
+
+
+function counter(initialValue, finalValue, stepSize, delay, showCount, increment, speedFactor){
+  let id = null
+  let from = initialValue;
+  let isRunning = false;
+  let step = stepSize;
+
+  function start(){
+    if(isRunning) return;
+    isRunning = true;
+    id = setInterval(() => {
+      if(from < finalValue){
+        from = Math.min(from + step, finalValue)
+
+      } else if( from > finalValue){
+        from = Math.max(from - step, finalValue)
+      } else{
+        clearInterval(id);
+        id = null
+        isRunning = false
+      }
+      showCount(from);
+      step = increment(stepSize, initialValue, finalValue, from, speedFactor);
+      
+    }, delay)
+    
+  }
+
+  function reset(){
+    isRunning = false;
+    from = initialValue;
+    clearInterval(id);
+    id = null;
+    showCount(from);
+  }
+
+  function pause(){
+    isRunning = false;
+    clearInterval(id);
+    id = null;
+  }
+  function getRunningState(){
+    return isRunning;
+  }
+
+  return {start, reset, pause, getRunningState}
+}
+
+
+
+const count = counter(1000, 0, 10, 100, showCount, increment, 10);
+
+
+function startPauseCounter(){
+ let runningState =count.getRunningState()
+  if(runningState){
+    count.pause();
+    display("Start")
+  } else{
+    count.start();
+    display("Pause")
+  }
+}
+
+function resetCounter(){
+  count.reset();
+  display("Start");
+}
+
+
+
+startButton.addEventListener("click", startPauseCounter);
+
+resetButton.addEventListener("click", resetCounter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // --Reset counter
 
 // Reset it to the start value and restart.
 
 
 
-const heading = document.getElementById("heading");
-const text = document.getElementById("text");
 
-let id;
 
-function counter(from, to, stepSize, delay, wrapper) {
-  id = setInterval(() => {
-    if (from < to) {
-      from = Math.min(from + stepSize, to);
-    } else if (from > to) {
-      from = Math.max(from - stepSize, to);
+// function showCount(currValue){
+//   heading.innerText = currValue
+// }
 
-    } else {
-      clearInterval(id);
-    }
-    wrapper.innerText = from;
-  }, delay);
-}
+// function display(buttonState){
+//   startButton.innerText = buttonState
+// }
 
 
 
+// function counter(initialValue, finalValue, stepSize, delay, showCount){
+//   let id = null
+//   let from = initialValue;
+//   let isRunning = false;
+
+//   function start(){
+//     if(isRunning) return;
+//     isRunning = true;
+//     id = setInterval(() => {
+//       if(from < finalValue){
+//         from = Math.min(from + stepSize, finalValue);
+//       } else if( from > finalValue){
+//         from = Math.max(from - stepSize, finalValue)
+//       } else{
+//         clearInterval(id);
+//         id = null
+//         isRunning = false
+//       }
+//       showCount(from)
+//     }, delay)
+    
+//   }
+
+//   function reset(){
+//     isRunning = false;
+//     from = initialValue;
+//     clearInterval(id);
+//     id = null;
+//     showCount(from);
+//   }
+
+//   function pause(){
+//     isRunning = false;
+//     clearInterval(id);
+//     id = null;
+//   }
+//   function getRunningState(){
+//     return isRunning;
+//   }
+
+//   return {start, reset, pause, getRunningState}
+// }
+
+
+
+// const count = counter(0, 1000, 10, 100, showCount, display);
+
+
+// function startPauseCounter(){
+//  let runningState =count.getRunningState()
+//   if(runningState){
+//     count.pause();
+//     display("Start")
+//   } else{
+//     count.start();
+//     display("Pause")
+//   }
+// }
+
+// function resetCounter(){
+//   count.reset();
+//   display("Start");
+// }
+
+
+
+
+
+// startButton.addEventListener("click", startPauseCounter);
+
+// resetButton.addEventListener("click", resetCounter);
 
 
 
@@ -56,14 +256,63 @@ function counter(from, to, stepSize, delay, wrapper) {
 
 
 
+// let id;
+
+// let from = 0;
+// const initialValue = from;
+
+// heading.innerText = from;
+
+// function showCount(currValue){
+//   heading.innerText = currValue
+// }
+
+// function counter(to, stepSize, delay, showCount) {
+//   id = setInterval(() => {
+//     if (from < to) {
+//       from = Math.min(from + stepSize, to);
+//     } else if (from > to) {
+//       from = Math.max(from - stepSize, to);
+//     } else {
+//       clearInterval(id);
+//       id = null;
+//       startButton.style.display = "none"
+//     }
+//     showCount(from);
+//   }, delay);
+// }
 
 
 
 
 
 
+// function onReset() {
+//   clearInterval(id);
+//   id = null;
 
+//   from = initialValue;
+//   heading.innerText = from;
 
+//   startButton.style.display = "block"
+//   startButton.innerText = "Start"
+// }
+
+// function onStart() {
+//   if (id != null) {
+//     clearInterval(id)
+//     id = null;
+//     startButton.innerText = "Start";
+//     //here we want start counter from where the from was stopped
+//   } else {
+//     //start counter from initially
+//     counter(1000, 2, 10, showCount)
+//     startButton.innerText = "Pause";
+//   }
+// }
+
+// resetButton.addEventListener("click", onReset);
+// startButton.addEventListener("click", onStart);
 
 // --Trigger a callback
 
@@ -89,23 +338,11 @@ function counter(from, to, stepSize, delay, wrapper) {
 //   }, delay);
 // }
 
-
-
 // function changeText(){
 //     text.innerText = "Followers on Instagram";
 // }
 
-
-
-
 // counter(0, 1000, 2, 10, heading, changeText);
-
-
-
-
-
-
-
 
 // --Highlight milestones
 

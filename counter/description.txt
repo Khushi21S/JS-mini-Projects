@@ -43,6 +43,9 @@ Introduce buttons that can pause and resume counting.
 
 Reset it to the start value and restart.
 
+
+
+
 --Local vs global variables
 
 Try moving count inside the function vs outside. See how behavior changes.
